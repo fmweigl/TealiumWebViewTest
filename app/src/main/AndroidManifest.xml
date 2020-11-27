@@ -3,6 +3,7 @@
     package="com.example.tealiumwebviewtest">
 
     <uses-permission android:name="android.permission.INTERNET" />
+<!--    <uses-permission android:name="WRITE"-->
 
     <application
         android:allowBackup="true"

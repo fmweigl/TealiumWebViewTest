@@ -3,8 +3,14 @@ package com.example.tealiumwebviewtest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebView
+import com.tealium.collectdispatcher.Collect
 import com.tealium.core.*
 import com.tealium.dispatcher.TealiumView
+import com.tealium.hosteddatalayer.HostedDataLayer
+import com.tealium.lifecycle.Lifecycle
+import com.tealium.remotecommanddispatcher.RemoteCommands
+import com.tealium.tagmanagementdispatcher.TagManagement
+import com.tealium.visitorservice.VisitorService
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,9 +26,11 @@ class MainActivity : AppCompatActivity() {
             application,
             "myAccount", // adding real account and profile name doesn't solve the problem
             "myProfile",
-            Environment.DEV
+            modules = mutableSetOf(Modules.Lifecycle, Modules.VisitorService, Modules.HostedDataLayer),
+            dispatchers = mutableSetOf(Dispatchers.Collect, Dispatchers.TagManagement, Dispatchers.RemoteCommands),
+            environment = Environment.DEV
         ).apply {
-            useRemoteLibrarySettings = false
+            useRemoteLibrarySettings = true
         }
 
         tealium = Tealium.create("tealium_instance", config)
